@@ -23,7 +23,6 @@ shinyServer(function(input, output) {
                         modi_macd= input$modi_macd, macd_fast=input$macd_fast,
                         macd_slow=input$macd_slow, macd_signal= input$macd_signal,
                         stop_trig = input$stop_trig, stop_profit=input$stop_profit)
-    
 
     args <-    switch(input$plot_select,
                     "1" = ", theme = chartTheme('white'), type = 'line', TA=NULL)",

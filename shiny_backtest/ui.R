@@ -7,9 +7,7 @@ library(shiny)
 library(ggplot2)
 
 shinyUI(fluidPage(
-  
   title = "Strategy Back Test",
-  
   plotOutput('plot'),
 
   hr(),
@@ -18,9 +16,7 @@ shinyUI(fluidPage(
     column(4,
            h4("Dataset"),
            helpText("Specify the symbol, date range and the basic plot style."),
-           
            br(),
-           
            textInput("symb", "Symbol", "SPY"),
            dateRangeInput("dates", 
                           label=h5("Date range"),
@@ -31,7 +27,6 @@ shinyUI(fluidPage(
                          value = FALSE),
            selectInput("plot_select", label = h5("Plot Style"), 
                        choices = list("Lin" = 1, "Candlestick" = 2), selected = 1),
-           
            br(),
            submitButton('Submit')
     ),
@@ -45,9 +40,7 @@ shinyUI(fluidPage(
                        , value = 20, step=1),
            sliderInput("sd", label=h6("Multiple of Standard Deviation:"), min = 1.0, max = 3.2,
                        , value = 2.0, step=0.1),
-           
            br(),
-           
            checkboxInput("processed", "Generate order", value = FALSE),
            checkboxInput("stop_profit", "Stop profit?", value = TRUE),
            numericInput("stop_day", label=h6("Max Days of Holding:"), value=1000, min =1, step = 1),
