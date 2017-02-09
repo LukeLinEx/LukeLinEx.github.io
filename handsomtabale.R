@@ -12,12 +12,13 @@ shinyApp(
     
     data = reactive({
       if (!is.null(input$hot)) {
-        DF = hot_to_r(input$hot)
+        DF = hot_to_r(input$hot);print(1)
       } else {
-        if (is.null(values[["DF"]]))
-          DF = iris#mtcars
-        else
-          DF = values[["DF"]]
+        if (is.null(values[["DF"]])){
+          DF = iris
+          print(2)
+        }else
+          DF = values[["DF"]]; print(3)
       }
       
       
