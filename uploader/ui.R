@@ -4,7 +4,7 @@ fluidPage(
   titlePanel("Uploading Files"),
   sidebarLayout(
     sidebarPanel(
-      fileInput('file1', 'Choose CSV File'),
+      fileInput('file1', 'Choose Files', multiple = T),
                 # accept=c('text/csv', 
                 #          'text/comma-separated-values,text/plain', 
                 #          '.csv')),

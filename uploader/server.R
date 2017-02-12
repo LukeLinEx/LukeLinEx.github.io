@@ -18,7 +18,7 @@ function(input, output) {
     path = input$file1$datapath
     print(path)
     #fname = paste(path)
-    file.copy(from=path, to=paste0('~/Desktop/uploader/', fname))
+    file.copy(from=path, to=paste0('~/dev/LukeLinEx.github.io/uploader/', fname))
   
     
     
