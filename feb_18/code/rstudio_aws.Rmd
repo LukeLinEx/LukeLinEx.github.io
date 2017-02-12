@@ -1,0 +1,82 @@
+---
+title: "Launch RStudio server on AWS"
+author: "Luke"
+date: "February 12, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br>
+<br>
+
+## Access your instance
+You will need 
+
+- your public DNS, which can be accessed from your AWS EC2 dash board
+- your `.pem` file, which you downloaded when you launch the AWS instance
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/feb_18/public_DNS.png height=500 width=500>
+
+<br>
+<br>
+The code below should be executed on your local terminal, which allow you to reach your remote instance:
+```{bash, eval=F}
+$ chmod 400 <your .pem file>
+$ ssh -i <path to your .pem file>/<your .pem file> ubuntu@<your public DNS>
+```
+
+<br>
+<br>
+<br>
+
+## Install R
+Once you ssh to your instance, the command below download and install R
+```{bash, eval=F}
+$ sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list'
+$ gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+$ gpg -a --export E084DAB9 | sudo apt-key add -
+$ sudo apt-get update
+$ sudo apt-get -y install r-base
+```
+
+
+<br>
+<br>
+<br>
+
+## Install RStudio server
+
+The command below install and start RStudio server
+```{bash, eval=F}
+$ sudo apt-get install gdebi-core
+$ wget https://download2.rstudio.org/rstudio-server-1.0.136-amd64.deb
+$ sudo gdebi rstudio-server-1.0.136-amd64.deb
+```
+
+<br>
+<br>
+<br>
+
+## Add RStudio user
+
+Run the command below to create a new user, enter and confirm the pass word (this is the password we use to login RStudio server). After that it will ask you to enter some personal information, you can skip all of them by hitting Return/Enter
+```{bash, eval=F}
+$ sudo adduser rstudio
+```
+
+<br>
+<br>
+<br>
+
+## Install and start Shiny server
+
+The code below install and start the shiny server
+```{bash, eval=F}
+$ sudo su - -c "R -e \"install.packages('shiny', repos='https://cran.rstudio.com/')\""
+$ wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.4.1.759-amd64.deb
+$ sudo gdebi shiny-server-1.4.1.759-amd64.deb
+```

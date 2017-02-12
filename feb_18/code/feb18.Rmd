@@ -1,0 +1,127 @@
+---
+title: "雲端到人間的距離"
+subtitle: "常識可以理解的社會"
+author: "林宗胤 (NYC Data Science Academy)"
+date: "February 18, 2017"
+output: ioslides_presentation
+---
+
+
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## XGB - eXtreme Gradient Boosting
+
+XGB 是一個 supervised learning alogorithm，屬於 tree-based models 中的一種。它的原型叫做 <a href = https://en.wikipedia.org/wiki/Gradient_boosting#cite_note-MasonBaxterBartlettFrean1999a-4>GBM - Gradient Boosting Machine</a>，而關鍵的成分是透過：
+
+- iterative (反覆疊代)
+- functional (變分)
+- gradient descent (延梯度相反方向下降)
+
+以此將 Objective function 最小化
+
+<!--- <a href=http://www.google.com>link</a>
+- <img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/auto_pic/demo_1.png width=600 height=500> -->
+
+## Quiz:
+
+我把GBM 的關鍵都講完了....有沒有人要重複我講的內容？
+
+## Kaggle Competition
+
+XGB 初試啼聲的大平台 - <a href=https://www.kaggle.com/competitions>Kaggle</a>
+
+- <a href=https://www.kaggle.com/c/higgs-boson>Higgs-Boson machine learning challenge</a> <a href=https://www.kaggle.com/c/higgs-boson/leaderboard>(3.64655)</a>
+- <a href=https://www.kaggle.com/c/otto-group-product-classification-challenge>Otto group product classification challenge</a>
+- <a href=https://www.kaggle.com/c/liberty-mutual-group-property-inspection-prediction>Liberty Mutual Group: Property Inspection Prediction</a>
+
+
+## XGB 作者
+
+XGB 一開始以C++ 寫出，作者是 <a href=http://homes.cs.washington.edu/~tqchen/>Tianqi Chen</a>。
+
+作者在去年初的一篇短文：<a href = http://homes.cs.washington.edu/~tqchen/2016/03/10/story-and-lessons-behind-the-evolution-of-xgboost.html>Story and Lessons Behind the Evolution of XGBoost</a>
+
+## Amazon Web Service
+
+Amazon Web Services (AWS) is a secure and **on-demand** cloud services platform, offering compute power, database storage, content delivery and other functionality. 
+
+<a href = https://aws.amazon.com/>Let's play with it!</a>
+
+## 武林秘笈
+
+<img src=http://i.imgur.com/SZPjHwz.jpg height=400 width=350>
+
+## Meetup
+Meetup brings people together in thousands of cities to do more of what they want to do in life. It brings people together to do, explore, teach and learn the things that help them come alive.
+
+- <a href=https://www.meetup.com/nyhackr/events/234123730/>How to Stop Sucking At StackOverflow and Start Kicking Ass!</a>
+- <a href=https://www.meetup.com/nyhackr/events/233537799/>Data Science with the Tidyverse</a>
+- <a href=https://www.meetup.com/nyhackr/events/234942204/>Data Scientists Explore the Presidential Candidates</a>
+- <a href=https://www.meetup.com/NYC-Women-in-Machine-Learning-Data-Science/events/234863804/>Recommendation Engines Workshop</a>
+
+## Advertisement
+<img src=http://1igaehqpcfb4b1vld289xcnk.wpengine.netdna-cdn.com/wp-content/uploads/2015/06/Untitled-1.png height=100 width=500>
+
+<a href=https://www.meetup.com/NYC-Open-Data/events/237612858/>The Fundamentals of Deep Learning, with Applications</a>
+
+- Tuesday, February 28, 2017<br>6:00 pm
+- <a href=https://goo.gl/maps/g9sdX1gaDtj>Work Market</a><br>9th floor 240 W 37th St, (between 8th ad 7th av) , New York, NY
+
+## TensorFlow
+
+```{python, eval=F, echo=T}
+from sklearn import linear_model
+logit = linear_model.LogisticRegression()
+logit.fit(x_train, y_train)
+probability = logit.predict_proba(x_train)
+```
+
+## TensorFlow
+
+```{python, eval=F, echo=T}
+import tensorflow as tf
+sess = tf.InteractiveSession()
+x = tf.constant(x_train, dtype=tf.float32)
+y = tf.constant(y_train, dtype=tf.float32)
+w = tf.Variable(tf.truncated_normal([1,1], stddev=0.1))
+b = tf.Variable(tf.constant(0.1, shape=[1,1]))
+
+y_lin = tf.add(tf.matmul(x, w), b)
+log_likelihood = tf.reduce_mean(y_lin*y - tf.log(1+tf.exp(y_lin)), 0)
+loss = -1*log_likelihood
+train_step = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
+
+steps = 200
+tf.global_variables_initializer().run()
+for i in range(steps):
+    train_step.run()
+```
+
+## TensorFlow - Vanilla Neural Network
+```{python, eval=F, echo=T}
+sess = tf.InteractiveSession()
+
+x = tf.constant(x_train, dtype=tf.float32)
+y = tf.constant(y_train, dtype=tf.float32)
+w_1 = tf.Variable(tf.truncated_normal([1,2], stddev=0.1))
+b_1 = tf.Variable(tf.constant(0.1, shape=[1,2]))
+hidden = tf.nn.sigmoid(tf.add(tf.matmul(x, w_1), b_1))
+w_2 = tf.Variable(tf.truncated_normal([2,1], stddev=0.1))
+b_2 = tf.Variable(tf.constant(0.1, shape=[1,1]))
+y_lin = tf.add(tf.matmul(hidden, w_2), b_2)
+loss = -1*tf.reduce_mean(y_lin*y - tf.log(1+tf.exp(y_lin)), 0)
+train_step = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
+
+steps = 20000
+tf.global_variables_initializer().run()
+for i in range(steps):
+    train_step.run()
+```
+
+## Shiny: A fun toy!
+
+<a href=http://ec2-52-203-109-250.compute-1.amazonaws.com:3838/classify_image _target=blank>Image Classification</a>
