@@ -1,0 +1,56 @@
+---
+title: "Regularization"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_1.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_2.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_3.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_4.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_5.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_6.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_7.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_8.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_9.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_10.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_11.png>
+
+## 
+
+<img src=https://raw.githubusercontent.com/LukeLinEx/LukeLinEx.github.io/master/regulariation/pic_12.png>
