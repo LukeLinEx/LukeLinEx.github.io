@@ -1,0 +1,111 @@
+---
+title: "RDA Exam"
+author: ""
+date: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br><br>
+
+### Overview
+
+We will be using the three datasets:
+
+- <a href=https://graderdata.s3.amazonaws.com/securities.txt target=_blank>securities.csv</a>
+- <a href=https://graderdata.s3.amazonaws.com/fundamentals.txt>fundamentals.csv</a>
+- <a href=https://graderdata.s3.amazonaws.com/prices-split-adjusted.txt>split adjusted price.csv</a>
+
+They were adapted from the webpage <a href=https://www.kaggle.com/dgawlik/nyse target=_blank>New York Stock Exchange</a>, where the original raw data can be found.
+<br><br><br>
+
+
+#### Prob 1. Loading data
+
+The csv file of split_adjusted_price.csv is saved in the url:
+
+`url_adjusted = 'https://graderdata.s3.amazonaws.com/prices-split-adjusted.csv'`
+
+Load the data into a dataframe, make sure that the `date` column is of a proper type.
+
+**Hint**: The function `as.Date` might come in handy.
+
+```{r, echo = F, eval = F}
+library(dplyr)
+url_adjusted = 'https://graderdata.s3.amazonaws.com/prices-split-adjusted.csv'
+adjusted = read.csv(url_adjusted)
+A$date <- A$date %>% as.Date()
+```
+
+<br><br><br>
+
+#### Prob 2. Missing values
+
+The dataset `securities` is loaded for you. Find the columns with any missing value.
+
+```{r, eval=F}
+securities = read.csv('https://graderdata.s3.amazonaws.com/securities.csv', na.strings = "")
+```
+
+How many missing values are there in the column `Date.first.added`?
+
+<br><br><br>
+
+#### Prob 3. Join
+
+The dataset `fundamentals` is loaded for you. Inner join `fundamentals` and `securities` on the ticker symbols. Save the answer into a variable, you will need it for the latter problems.
+
+```{r, eval= F}
+fundamentals = read.csv('https://graderdata.s3.amazonaws.com/fundamentals.csv', na.strings = "", row.names=1)
+```
+
+<br><br><br>
+
+#### Prob 4. ggplot2
+
+From the merged data frame from Prob 3., visualize the relation between `Earnings.Before.Interest.and.Tax` and `Total.Equity`.
+
+```{r, eval=F}
+library(ggplot2)
+```
+
+```{r, echo=F, eval=F}
+ggplot(data= A) + geom_point(aes(x= Total.Equity, y=Earnings.Before.Interest.and.Tax))
+```
+
+<br><br><br>
+
+#### Prob 5. ggplot2 (continue)
+
+From the merged data frame from Prob 3., compare the `Accounts.Payable` for different `GICS.Sector`.
+
+**Hint**: 
+You **DO NOT** need to customize the plot for this exam. In real work, you might want to:
+
+- Rotate the x-axis label to avoid overlapping by `+ theme(axis.text.x = element_text(angle = 90, hjust = 1))`
+- Zoom in to neglect outliers by `+ ylim(NA, 5e10)`
+
+```{r, echo=F, eval=F}
+ggplot(data= A) + geom_boxplot(aes(x=GICS.Sector, y=Accounts.Payable)) 
+```
+
+<br><br><br>
+
+#### Prob 6. dplyr: Grouping and aggregating
+
+From the merged data frame from Prob 3., find the `GICS.Sector` with the highest average `After.Tax.ROE`.
+
+```{r, eval=F}
+library(dplyr)
+```
+
+```{r, echo=F, eval=F}
+A %>% group_by(GICS.Sector) %>% 
+  summarise(avg_after_tax_roe = mean(After.Tax.ROE)) %>%
+  arrange(desc(avg_after_tax_roe))
+```
+
+<br><br><br>
