@@ -33,24 +33,26 @@ Load the data into a dataframe, make sure that the `date` column is of a proper 
 
 **Hint**: The function `as.Date` might come in handy.
 
-```{r, echo = F, eval = F}
+```{r, echo = F}
 library(dplyr)
 url_adjusted = 'https://graderdata.s3.amazonaws.com/prices-split-adjusted.csv'
 adjusted = read.csv(url_adjusted)
-A$date <- A$date %>% as.Date()
+adjusted$date <- adjusted$date %>% as.Date()
 ```
 
 <br><br><br>
 
 #### Prob 2. Missing values
 
-The dataset `securities` is loaded for you. Find the columns with any missing value.
-
-```{r, eval=F}
+The dataset `securities` is loaded for you. 
+```{r}
 securities = read.csv('https://graderdata.s3.amazonaws.com/securities.csv', na.strings = "")
 ```
-
 How many missing values are there in the column `Date.first.added`?
+
+```{r}
+securities %>% select(Date.first.added) %>% is.na() %>% sum()
+```
 
 <br><br><br>
 
@@ -58,8 +60,12 @@ How many missing values are there in the column `Date.first.added`?
 
 The dataset `fundamentals` is loaded for you. Inner join `fundamentals` and `securities` on the ticker symbols. Save the answer into a variable, you will need it for the latter problems.
 
-```{r, eval= F}
+```{r}
 fundamentals = read.csv('https://graderdata.s3.amazonaws.com/fundamentals.csv', na.strings = "", row.names=1)
+```
+
+```{r}
+A = inner_join(fundamentals, securities, by=c("Ticker.Symbol"="Ticker.symbol"))
 ```
 
 <br><br><br>
@@ -68,12 +74,18 @@ fundamentals = read.csv('https://graderdata.s3.amazonaws.com/fundamentals.csv', 
 
 From the merged data frame from Prob 3., visualize the relation between `Earnings.Before.Interest.and.Tax` and `Total.Equity`.
 
-```{r, eval=F}
+```{r}
 library(ggplot2)
 ```
 
-```{r, echo=F, eval=F}
-ggplot(data= A) + geom_point(aes(x= Total.Equity, y=Earnings.Before.Interest.and.Tax))
+```{r, echo=F}
+Common.Stock = cut(A$Common.Stocks, breaks=quantile(A$Common.Stocks, probs=c(0, 0.25, 0.7, 1)), include.lowest=TRUE)
+
+
+ggplot(data= A) + geom_point(aes(x= Total.Equity,
+                                 y=Earnings.Before.Interest.and.Tax), alpha = 0.7)
+
+
 ```
 
 <br><br><br>
@@ -88,7 +100,7 @@ You **DO NOT** need to customize the plot for this exam. In real work, you might
 - Rotate the x-axis label to avoid overlapping by `+ theme(axis.text.x = element_text(angle = 90, hjust = 1))`
 - Zoom in to neglect outliers by `+ ylim(NA, 5e10)`
 
-```{r, echo=F, eval=F}
+```{r, echo=F}
 ggplot(data= A) + geom_boxplot(aes(x=GICS.Sector, y=Accounts.Payable)) 
 ```
 
@@ -98,11 +110,11 @@ ggplot(data= A) + geom_boxplot(aes(x=GICS.Sector, y=Accounts.Payable))
 
 From the merged data frame from Prob 3., find the `GICS.Sector` with the highest average `After.Tax.ROE`.
 
-```{r, eval=F}
+```{r}
 library(dplyr)
 ```
 
-```{r, echo=F, eval=F}
+```{r, echo=F}
 A %>% group_by(GICS.Sector) %>% 
   summarise(avg_after_tax_roe = mean(After.Tax.ROE)) %>%
   arrange(desc(avg_after_tax_roe))
