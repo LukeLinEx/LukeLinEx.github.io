@@ -3,6 +3,9 @@ from aetna_register import *
 
 print(1)
 
+def function():
+    print("conflict")
+
 if __name__ == '__main__':
 	#_, input_file, output_file = argv
 	input_file = raw_input('Enter the data source: \n')
