@@ -1,6 +1,8 @@
 #from sys import argv
 from aetna_register import *
 
+def function():
+    print("conflict")
 
 if __name__ == '__main__':
 	#_, input_file, output_file = argv
