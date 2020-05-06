@@ -1,6 +1,7 @@
 #from sys import argv
 from aetna_register import *
 
+print(1)
 
 if __name__ == '__main__':
 	#_, input_file, output_file = argv
